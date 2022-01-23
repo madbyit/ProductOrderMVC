@@ -13,15 +13,15 @@ namespace CentiroHomeAssignment.Controllers
         public void OrderStart()
         {
             Console.WriteLine("Hello world!");
-            ReadCSV();
+            StreamReadCSV();
             GetAll();
         }
        
         public IActionResult GetAll()
         {
             // TODO: Return all orders to a view
-             
-            throw new NotImplementedException();
+            return View(); 
+            //throw new NotImplementedException();
         }
 
         public IActionResult GetByOrderNumber(string orderNumber)
@@ -31,48 +31,53 @@ namespace CentiroHomeAssignment.Controllers
             throw new NotImplementedException();
         }
 
-        private void ReadCSV()
+        private void StreamReadCSV()
         {
-            List<OrdersModel> orderLines = new List<OrdersModel>();
-
             string filePath = String.Empty;
             filePath = Environment.CurrentDirectory + "/App_Data/";
-            Console.WriteLine("Filepath is: " + filePath);
             string[] AllFiles = Directory.GetFiles(@filePath);
-           
+
             for (int i = 0; i < AllFiles.Length; i++)
             {
-                /*Read the contents of CSV / txt file.      
-                Read the file as one string.*/
-                string csvData = System.IO.File.ReadAllText(@AllFiles[i]);
-
-                List<string> orderlist = new List<string>();
-                List<string> listitems = new List<string>();
-
-                /* Split by row */
-                foreach (string row in csvData.Split('\n'))
+                /*Read the file as one string.*/
+                using (StreamReader sr = new StreamReader(AllFiles[i]))
                 {
-                    /* Split by pipe */
-                    foreach (string ord in row.Split('|'))
+                    /* Jumping first line since it is the header */
+                    string headerLine = sr.ReadLine();
+                    
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        listitems.Add(ord);
+                        string csvData = line;
+
+                        List<string> orderlist = new List<string>();
+                        List<string> listitems = new List<string>();      
+                        
+                        /* Split by row */
+                        foreach (string row in csvData.Split('\n'))
+                        {
+                            /* Split by pipe */
+                            foreach (string ord in row.Split('|'))
+                            {
+                                listitems.Add(ord);
+                            }
+
+                            orderlist.Add(row);
+                        } 
+
+                        foreach (var myvar in orderlist)
+                        {
+                            Console.WriteLine("Total Orderlist: " + myvar);
+                        }
+
+                        foreach (var myvar in listitems)
+                        {
+                            Console.WriteLine("List items: " + myvar);
+                        }
                     }
-
-                    orderlist.Add(row);
-                } 
-
-                foreach (var myvar in orderlist)
-                {
-                    Console.WriteLine("Total Orderlist: " + myvar);
-                }
-
-                foreach (var myvar in listitems)
-                {
-                    Console.WriteLine("List items: " + myvar);
                 }
             }
-            
-        }
+        }           
     }
 }
 
