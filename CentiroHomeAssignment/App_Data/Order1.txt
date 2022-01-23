@@ -1,0 +1,5 @@
+|OrderNumber|OrderLineNumber|ProductNumber|Quantity|Name|Description|Price|ProductGroup|OrderDate|CustomerName|CustomerNumber|
+|17890|0001|123451324A|1|X-Wing Starfighter|Super awesome starfighter|99.99|Star Wars|2014-01-25|Daniel Johansson|737268|
+|17890|0002|4000-AAA|2|3x2 Red piece||0.15|Normal|2014-01-25|Daniel Johansson|737268|
+|17890|0003|4000-BAA|2|3x2 Blue piece||0.15|Normal|2014-01-25|Daniel Johansson|737268|
+|17890|0004|4000-CAA|8|2x2 Red piece||0.10|Normal|2014-01-25|Daniel Johansson|737268|

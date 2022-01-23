@@ -1,0 +1,6 @@
+|OrderNumber|OrderLineNumber|ProductNumber|Quantity|Name|Description|Price|ProductGroup|OrderDate|CustomerName|CustomerNumber|
+|17642|0001|2000-19|1|Small house|A normal small house|5.99|Normal|2013-05-10|Per Andersson|658254|
+|17642|0002|1000-1|2|Green trees|Green pine trees|1.99|Forest|2013-05-10|Per Andersson|658254|
+|17642|0003|1000-2|5|Green trees (Big)|Big green pine trees|2.99|Forest|2013-05-10|Per Andersson|658254|
+|17642|0004|A145|5|Fish|Small fish|0.50|Sea|2013-05-10|Per Andersson|658254|
+|17642|0005|A167|3|Road|Road piece|0.99|Normal|2013-05-10|Per Andersson|658254|

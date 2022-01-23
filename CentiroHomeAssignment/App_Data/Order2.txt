@@ -1,0 +1,6 @@
+|OrderNumber|OrderLineNumber|ProductNumber|Quantity|Name|Description|Price|ProductGroup|OrderDate|CustomerName|CustomerNumber|
+|17835|0001|123-100|75|Little Guys|Small Guys|0.99|Normal|2014-07-05|Kalle Svensson|265849|
+|17835|0002|5000-AAA|1|1x1 Red Piece||0.05|Normal|2014-07-05|Kalle Svensson|265849|
+|17835|0003|5000-AAB|1|1x1 Blue Piece||0.05|Normal|2014-07-05|Kalle Svensson|265849|
+|17835|0004|5000-AAC|1|1x1 Yellow Piece||0.05|Normal|2014-07-05|Kalle Svensson|265849|
+|17835|0005|5000-AAD|1|1x1 Green Piece||0.05|Normal|2014-07-05|Kalle Svensson|265849|

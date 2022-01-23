@@ -1,0 +1,1 @@
+file is included to include empty folder in git
