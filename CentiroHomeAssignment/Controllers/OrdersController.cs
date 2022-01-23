@@ -8,32 +8,32 @@ using System.Linq;
 /* MVC - The Controller handles user's requests and returns a respons */
 namespace CentiroHomeAssignment.Controllers
 {
-     public class OrdersController : Controller
+    public class OrdersController : Controller
     {
-        public List<string> orderlist = new List<string>();
-        public List<string> listitems = new List<string>(); 
-        
-        public OrdersController()
+        public List<OrdersModel> _orderlist = new List<OrdersModel>();
+
+        public ActionResult Index()
         {
             OrderStart();
+            ViewData["OrderList"] = _orderlist;
+
+            return View();
         }
 
         public void OrderStart()
         {
-            Console.WriteLine("Welcome to the orders controller.");
+            //Console.WriteLine("Welcome to the orders controller.");
             StreamReadCSV();
-            //HandleOrder();
-            GetAll();
-            PrintAll();
+            //GetAll();
+            //PrintAll();
         }
-       
+
         public IActionResult GetAll()
         {
             // TODO: Return all orders to a view
-            OrdersModel orm = HandleOrder();
 
-            Console.WriteLine(orm.OrderNumber);
-            return View(orm); 
+            throw new NotImplementedException();
+            //return Ok();
         }
 
         public IActionResult GetByOrderNumber(string orderNumber)
@@ -43,28 +43,43 @@ namespace CentiroHomeAssignment.Controllers
             throw new NotImplementedException();
         }
 
-        private OrdersModel HandleOrder()
-        {
-            /* For now this only handle first row*/
-            OrdersModel om = new OrdersModel()
-            {
-                OrderNumber = Convert.ToInt32(listitems.ElementAt(1)),
-                OrderLineNumber = Convert.ToInt32(listitems.ElementAt(2)),
-                ProductNumber = listitems.ElementAt(3),
-                Quantity = Convert.ToInt32(listitems.ElementAt(4)),
-                Name = listitems.ElementAt(5),
-                Description = listitems.ElementAt(6),
-                Price = listitems.ElementAt(7),
-                ProductGroup = listitems.ElementAt(8),
-                OrderDate = DateTime.Parse(listitems.ElementAt(9)),
-                CustomerName = listitems.ElementAt(10),
-                CustomerNumber = Convert.ToInt32(listitems.ElementAt(11)),
-            };
-            
-            return om;
-        }
+        //private OrdersModel HandleOrder()
+        //{
+        //    /* For now this only handle first row for test*/
+        //    OrdersModel om = new OrdersModel()
+        //    {
+        //        OrderNumber = Convert.ToInt32(listitems.ElementAt(1)),
+        //        OrderLineNumber = Convert.ToInt32(listitems.ElementAt(2)),
+        //        ProductNumber = listitems.ElementAt(3),
+        //        Quantity = Convert.ToInt32(listitems.ElementAt(4)),
+        //        Name = listitems.ElementAt(5),
+        //        Description = listitems.ElementAt(6),
+        //        Price = listitems.ElementAt(7),
+        //        ProductGroup = listitems.ElementAt(8),
+        //        OrderDate = DateTime.Parse(listitems.ElementAt(9)),
+        //        CustomerName = listitems.ElementAt(10),
+        //        CustomerNumber = Convert.ToInt32(listitems.ElementAt(11)),
+        //    };
 
-        private void StreamReadCSV()
+        //   return om;
+        //}
+
+        //private void PeekOrder(OrdersModel om)
+        //{
+        //    Console.WriteLine("Ordernumber : " + om.OrderNumber);
+        //    Console.WriteLine("OrderLineNumber : " + om.OrderLineNumber);
+        //    Console.WriteLine("ProductNumber : " + om.ProductNumber);
+        //    Console.WriteLine("Quantity : " + om.Quantity);
+        //    Console.WriteLine("Name : " + om.Name);
+        //    Console.WriteLine("Description : " + om.Description);
+        //    Console.WriteLine("Price : " + om.Price);
+        //    Console.WriteLine("ProductGroup : " + om.ProductGroup);
+        //    Console.WriteLine("OrderDate : " + om.OrderDate);
+        //    Console.WriteLine("Ordernumber : " + om.OrderDate);
+        //    Console.WriteLine("CustomerNumber : " + om.CustomerNumber);
+        //}
+
+        public void StreamReadCSV()
         {
             string filePath = String.Empty;
             filePath = Environment.CurrentDirectory + "/App_Data/";
@@ -75,73 +90,73 @@ namespace CentiroHomeAssignment.Controllers
                 /*Read the file as one string.*/
                 using (StreamReader sr = new StreamReader(AllFiles[i]))
                 {
+                    var customerOrderList = new List<List<string>>();
+
                     /* Jumping first line since it is the header */
                     string headerLine = sr.ReadLine();
-                    
+
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
                         string csvData = line;
 
                         /* Split by row / ordered item */
-                        foreach (string row in csvData.Split('\n'))
+                        foreach (string row in csvData.Split("\n"))
                         {
+                            var rowList = new List<string>();
                             /* Split by pipe / order description */
-                            foreach (string ord in row.Split('|'))
+                            foreach (string word in row.Split('|'))
                             {
-                                listitems.Add(ord);
+                                rowList.Add(word);
                             }
-                            orderlist.Add(row);
-                        } 
 
+                            customerOrderList.Add(rowList);
+                        }
                     }
+                    PopulateOrderList(customerOrderList);
+
                 }
             }
         }
 
-        private void PrintAll()
+        private void PopulateOrderList(List<List<string>> customerOrderList)
         {
-            foreach (var myvar in orderlist)
+            var order = new OrdersModel();
+            order.OrderNumber = customerOrderList[0][1];
+            order.CustomerName = customerOrderList[0][10];
+            order.CustomerNumber = customerOrderList[0][11];
+            order.OrderDate = Convert.ToDateTime(customerOrderList[0][9]).Date;
+            order.OrderItems = new List<OrderItem>();
+
+            foreach (var list in customerOrderList)
             {
-                Console.WriteLine("Total Orderlist: " + myvar);
+                order.OrderItems.Add(new OrderItem
+                {
+                    OrderLineNumber = Convert.ToInt32(list[2]),
+                    ProductNumber = list[3],
+                    Quantity = list[4],
+                    Name = list[5],
+                    Description = list[6],
+                    Price = list[7],
+                    ProductGroup = list[8],
+                });
             }
 
-            foreach (var myvar in listitems)
-            {
-                Console.WriteLine("List items: " + myvar);
-            }
-        }           
+            _orderlist.Add(order);
+        }
+
+        //private void PrintAll()
+        //{
+        //    foreach (var myvar in orderlist)
+        //    {
+        //        Console.WriteLine("Total Orderlist: " + myvar);
+        //    }
+
+        //    foreach (var myvar in listitems)
+        //    {
+        //        Console.WriteLine("List items: " + myvar);
+        //    }
+
+        //}           
     }
 }
-
-
-
-
-
-
-
-    // ##### TEST AREA #####
-
-    // Possible split csv solution
-    //         //Execute a loop over the rows.
-    //         foreach (string row in csvData.Split('\n'))
-    //         {
-    //             if (!string.IsNullOrEmpty(row))
-    //             {
-    //                 orderLines.Add(new OrdersModel
-    //                 {
-    //                     OrderNumber = Convert.ToInt32(row.Split('|')[0]),
-    //                     OrderLineNumber = Convert.ToInt32(row.Split('|')[1]),
-    //                     ProductNumber = row.Split('|')[2],
-    //                     Quantity = Convert.ToInt32(row.Split('|')[3]),
-    //                     Name = row.Split('|')[4],
-    //                     Description = row.Split('|')[5],
-    //                     Price = Convert.ToInt32((row.Split('|')[6])),
-    //                     ProductGroup = row.Split('|')[8],
-    //                     OrderDate = (row.Split('|')[9]),
-    //                     CustomerName = row.Split('|')[10],
-    //                     CustomerNumber = Convert.ToInt32((row.Split('|')[11]))
-    //                 });
-    //             }
-    //         }
-    //         return View(orderLines);

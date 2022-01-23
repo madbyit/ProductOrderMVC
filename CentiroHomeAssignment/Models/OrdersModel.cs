@@ -5,6 +5,7 @@ which will be used by the application to hold and manipulate application data.
 */
 
 using System;
+using System.Collections.Generic;
 
 namespace CentiroHomeAssignment.Models
 {
@@ -12,31 +13,15 @@ namespace CentiroHomeAssignment.Models
     the order information contained in the files */
     public class OrdersModel
     {
-        public int OrderNumber{ get; set; }
-
-        public int OrderLineNumber { get; set; }
-
-        public string ProductNumber { get; set; }
-
-        public int Quantity { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        /*
-        Price should be of type double,
-        but the parser wouldn't handle a dot
-        */
-        public string Price { get; set; }
-
-        public string ProductGroup { get; set; }
-
-        public DateTime OrderDate { get; set; }
+        public string OrderNumber { get; set; }
 
         public string CustomerName { get; set; }
 
-        public int CustomerNumber { get; set; }
+        public string CustomerNumber { get; set; }
+
+        public DateTime OrderDate { get; set; }
+
+        public List<OrderItem> OrderItems { get; set; }
 
     }
 }
