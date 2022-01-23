@@ -24,6 +24,10 @@ namespace CentiroHomeAssignment.Models
 
         public string Description { get; set; }
 
+        /*
+        Price should be of type double,
+        but the parser wouldn't handle a dot
+        */
         public string Price { get; set; }
 
         public string ProductGroup { get; set; }
