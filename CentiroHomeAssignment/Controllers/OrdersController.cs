@@ -40,11 +40,6 @@ namespace CentiroHomeAssignment.Controllers
             Console.WriteLine("Filepath is: " + filePath);
             string[] AllFiles = Directory.GetFiles(@filePath);
            
-           Console.WriteLine("LENGTH: " + AllFiles.Length);
-            Console.WriteLine(AllFiles[0]);
-            Console.WriteLine(AllFiles[1]);
-            Console.WriteLine(AllFiles[2]);
-
             for (int i = 0; i < AllFiles.Length; i++)
             {
                 /*Read the contents of CSV / txt file.      
