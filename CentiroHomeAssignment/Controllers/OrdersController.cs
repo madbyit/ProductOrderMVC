@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using CentiroHomeAssignment.Models;
-using System.Linq;
 
 /* MVC - The Controller handles user's requests and returns a respons */
 namespace CentiroHomeAssignment.Controllers
@@ -14,26 +13,18 @@ namespace CentiroHomeAssignment.Controllers
 
         public ActionResult Index()
         {
-            OrderStart();
+            GetAll();
             ViewData["OrderList"] = _orderlist;
 
             return View();
         }
 
-        public void OrderStart()
-        {
-            //Console.WriteLine("Welcome to the orders controller.");
-            StreamReadCSV();
-            //GetAll();
-            //PrintAll();
-        }
-
+        
         public IActionResult GetAll()
         {
             // TODO: Return all orders to a view
-
-            throw new NotImplementedException();
-            //return Ok();
+            StreamReadCSV();
+            return Ok();
         }
 
         public IActionResult GetByOrderNumber(string orderNumber)
@@ -42,42 +33,6 @@ namespace CentiroHomeAssignment.Controllers
 
             throw new NotImplementedException();
         }
-
-        //private OrdersModel HandleOrder()
-        //{
-        //    /* For now this only handle first row for test*/
-        //    OrdersModel om = new OrdersModel()
-        //    {
-        //        OrderNumber = Convert.ToInt32(listitems.ElementAt(1)),
-        //        OrderLineNumber = Convert.ToInt32(listitems.ElementAt(2)),
-        //        ProductNumber = listitems.ElementAt(3),
-        //        Quantity = Convert.ToInt32(listitems.ElementAt(4)),
-        //        Name = listitems.ElementAt(5),
-        //        Description = listitems.ElementAt(6),
-        //        Price = listitems.ElementAt(7),
-        //        ProductGroup = listitems.ElementAt(8),
-        //        OrderDate = DateTime.Parse(listitems.ElementAt(9)),
-        //        CustomerName = listitems.ElementAt(10),
-        //        CustomerNumber = Convert.ToInt32(listitems.ElementAt(11)),
-        //    };
-
-        //   return om;
-        //}
-
-        //private void PeekOrder(OrdersModel om)
-        //{
-        //    Console.WriteLine("Ordernumber : " + om.OrderNumber);
-        //    Console.WriteLine("OrderLineNumber : " + om.OrderLineNumber);
-        //    Console.WriteLine("ProductNumber : " + om.ProductNumber);
-        //    Console.WriteLine("Quantity : " + om.Quantity);
-        //    Console.WriteLine("Name : " + om.Name);
-        //    Console.WriteLine("Description : " + om.Description);
-        //    Console.WriteLine("Price : " + om.Price);
-        //    Console.WriteLine("ProductGroup : " + om.ProductGroup);
-        //    Console.WriteLine("OrderDate : " + om.OrderDate);
-        //    Console.WriteLine("Ordernumber : " + om.OrderDate);
-        //    Console.WriteLine("CustomerNumber : " + om.CustomerNumber);
-        //}
 
         public void StreamReadCSV()
         {
@@ -121,11 +76,12 @@ namespace CentiroHomeAssignment.Controllers
 
         private void PopulateOrderList(List<List<string>> customerOrderList)
         {
+            /* Repeated often */
             var order = new OrdersModel();
             order.OrderNumber = customerOrderList[0][1];
+            order.OrderDate = Convert.ToDateTime(customerOrderList[0][9]).Date;
             order.CustomerName = customerOrderList[0][10];
             order.CustomerNumber = customerOrderList[0][11];
-            order.OrderDate = Convert.ToDateTime(customerOrderList[0][9]).Date;
             order.OrderItems = new List<OrderItem>();
 
             foreach (var list in customerOrderList)
@@ -143,20 +99,6 @@ namespace CentiroHomeAssignment.Controllers
             }
 
             _orderlist.Add(order);
-        }
-
-        //private void PrintAll()
-        //{
-        //    foreach (var myvar in orderlist)
-        //    {
-        //        Console.WriteLine("Total Orderlist: " + myvar);
-        //    }
-
-        //    foreach (var myvar in listitems)
-        //    {
-        //        Console.WriteLine("List items: " + myvar);
-        //    }
-
-        //}           
+        }      
     }
 }

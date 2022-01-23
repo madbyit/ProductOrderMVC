@@ -1,18 +1,23 @@
 ﻿@model CentiroHomeAssignment.Models.OrdersModel
 
 @{
-    //ViewData["Title"] = "Orders";
-    var x = ViewData["OrderList"];
+    ViewData["Title"] = "Orders";
+    @*Test to get data to my View*@
+    var orderitem = ViewData["OrderList"];
 }
 
 <h1>@ViewData["Title"]</h1>
-
-
+@*@ViewData["OrderList"].ToString()
+@foreach(var oi in @Model.OrderItems)
+{
+   <li>@oi.OrderLineNumber</li>
+}
+*@
 <div>
     <table>
-@*         <tr>
+         @*<tr>
             <td>OrderNumber: </td>
-            <td>@ViewData.Model.OrderNumber</td>
+            <td>@Model.OrderNumber</td>
         </tr>*@
         @*<tr>
             <td>OrderLineNumber: </td>
