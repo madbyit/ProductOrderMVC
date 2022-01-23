@@ -24,11 +24,11 @@ namespace CentiroHomeAssignment.Models
 
         public string Description { get; set; }
 
-        public double Price { get; set; }
+        public string Price { get; set; }
 
         public string ProductGroup { get; set; }
 
-        public string OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public string CustomerName { get; set; }
 

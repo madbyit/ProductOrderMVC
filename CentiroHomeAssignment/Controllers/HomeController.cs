@@ -26,8 +26,7 @@ namespace CentiroHomeAssignment.Controllers
 
         public IActionResult Orders()
         {
-            OrdersController oc = new OrdersController();
-            oc.OrderStart();
+            new OrdersController();
             return View();
         }
 
