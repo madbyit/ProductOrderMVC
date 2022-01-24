@@ -7,61 +7,63 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-@*@ViewData["OrderList"].ToString()
-@foreach(var oi in @Model.OrderItems)
-{
-   <li>@oi.OrderLineNumber</li>
-}
-*@
-<div>
-    <table>
-         @*<tr>
-            <td>OrderNumber: </td>
-            <td>@Model.OrderNumber</td>
-        </tr>*@
-        @*<tr>
-            <td>OrderLineNumber: </td>
-            <td>@Model.OrderLineNumber</td>
-        </tr>
-        <tr>
-            <td>ProductNumber: </td>
-            <td>@Model.ProductNumber</td>
-        </tr>
-        <tr>
-            <td>Quantity: </td>
-            <td>@Model.Quantity</td>
-        </tr>
-        <tr>
-            <td>Name: </td>
-            <td>@Model.Name</td>
-        </tr>
-        <tr>
-            <td>Description: </td>
-            <td>@Model.Description</td>
-        </tr>
-        <tr>
-            <td>Price: </td>
-            <td>@Model.Price</td>
-        </tr>
-        <tr>
-            <td>ProductGroup: </td>
-            <td>@Model.ProductGroup</td>
-        </tr>
-        <tr>
-            <td>OrderDate: </td>
-            <td>@Model.OrderDate</td>
-        </tr>
-        <tr>
-            <td>CustomerName: </td>
-            <td>@Model.CustomerName</td>
-        </tr>
-        <tr>
-            <td>CustomerNumber: </td>
-            <td>@Model.CustomerNumber</td>
-        </tr>*@ 
-    </table>
-</div>
-<div>
-    @* <button onclick="">Get All</button>
-    <button>OrderBy</button> *@
-</div>
+@{
+    List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
+
+    @foreach (var x in orderList)
+    {
+        <table>
+            <tr>
+                <td>Order Number: </td>
+                <td>@x.OrderNumber</td>
+            </tr>
+            <tr>
+                <td>Customer Name: </td>
+                <td>@x.CustomerName</td>
+            </tr>
+            <tr>
+                <td>Order Date: </td>
+                <td>@x.OrderDate</td>
+            </tr>
+            <tr>
+                <td>Customer Number: </td>
+                <td>@x.CustomerNumber</td>
+            </tr> 
+         </table>
+
+            @foreach (var y in x.OrderItems)
+            {
+            <table>
+            <tr>
+                <td>OrderLine Number: </td>
+                <td>@y.OrderLineNumber.</td>
+            </tr>
+            <tr>
+                <td>Product number: </td>
+                <td>@y.ProductNumber</td>
+            </tr>
+            <tr>
+                <td>Quantity: </td>
+                <td>@y.Quantity</td>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>@y.Name</td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td>@y.Description</td>
+            </tr>
+            <tr>
+                <td>Price: </td>
+                <td>@y.Price</td>
+            </tr>
+            <tr>
+                <td>Product Group: </td>
+                <td>@y.ProductGroup</td>
+            </tr>
+            </table>
+        }
+    }
+
+ }
