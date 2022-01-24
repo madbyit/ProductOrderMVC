@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CentiroHomeAssignment.Models;
+using ProductOrderWebApp.Models;
 
-namespace CentiroHomeAssignment.Controllers
+namespace ProductOrderWebApp.Controllers
 {
     public class HomeController : Controller
     {

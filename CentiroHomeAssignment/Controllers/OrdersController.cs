@@ -2,10 +2,10 @@
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using CentiroHomeAssignment.Models;
+using ProductOrderWebApp.Models;
 
 /* MVC - The Controller handles user's requests and returns a respons */
-namespace CentiroHomeAssignment.Controllers
+namespace ProductOrderWebApp.Controllers
 {
     public class OrdersController : Controller
     {

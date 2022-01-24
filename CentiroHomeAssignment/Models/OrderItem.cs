@@ -4,7 +4,7 @@ Typically model class includes public properties,
 which will be used by the application to hold and manipulate application data.
 */
 
-namespace CentiroHomeAssignment.Models
+namespace ProductOrderWebApp.Models
 {
     /* Analyze the CSV files and create a model that can represent 
     the order information contained in the files */

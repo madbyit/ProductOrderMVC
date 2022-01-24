@@ -1,6 +1,6 @@
 using System;
 
-namespace CentiroHomeAssignment.Models
+namespace ProductOrderWebApp.Models
 {
     public class ErrorViewModel
     {

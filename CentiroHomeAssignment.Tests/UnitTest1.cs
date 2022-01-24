@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CentiroHomeAssignment.Controllers;
+using ProductOrderWebApp.Controllers;
 
 
-namespace CentiroHomeAssignment.Tests
+namespace ProductOrderWebApp.Tests
 {
     [TestClass]
     public class UnitTest1
