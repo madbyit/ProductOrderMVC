@@ -43,40 +43,45 @@ namespace ProductOrderWebApp.Controllers
             for (int i = 0; i < AllFiles.Length; i++)
             {
                 /*Read the file as one string.*/
-                using (StreamReader sr = new StreamReader(AllFiles[i]))
+                using StreamReader sr = new StreamReader(AllFiles[i]);
+                var customerOrderList = new List<List<string>>();
+
+                /* Jumping first line since it is the header */
+                string headerLine = sr.ReadLine();
+
+                string line;
+                while ((line = sr.ReadLine()) != null)
                 {
-                    var customerOrderList = new List<List<string>>();
+                    string csvData = line;
 
-                    /* Jumping first line since it is the header */
-                    string headerLine = sr.ReadLine();
-
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
+                    /* Split by row / ordered item */
+                    foreach (string row in csvData.Split("\n"))
                     {
-                        string csvData = line;
-
-                        /* Split by row / ordered item */
-                        foreach (string row in csvData.Split("\n"))
+                        var rowList = new List<string>();
+                        /* Split by pipe / order description */
+                        foreach (string word in row.Split('|'))
                         {
-                            var rowList = new List<string>();
-                            /* Split by pipe / order description */
-                            foreach (string word in row.Split('|'))
-                            {
-                                rowList.Add(word);
-                            }
-
-                            customerOrderList.Add(rowList);
+                            rowList.Add(word);
                         }
-                    }
-                    PopulateOrderList(customerOrderList);
 
+                        customerOrderList.Add(rowList);
+                    }
                 }
+                PopulateOrderList(customerOrderList);
             }
         }
 
         private void PopulateOrderList(List<List<string>> customerOrderList)
         {
-            /* Repeated often */
+            /* Like a tree. OOP. Or like a class holding classes. 
+             * List is a class. 
+             * 
+             * The first [0] is the index 0 in the parent-list.
+             * This task included 3 files with different orders.
+             * I want to create the orders seperated from each file.
+             * The parent list is the three files, and in each of them
+             * was the list with orders.
+            */
             var order = new OrdersModel();
             order.OrderNumber = customerOrderList[0][1];
             order.OrderDate = Convert.ToDateTime(customerOrderList[0][9]).Date;
