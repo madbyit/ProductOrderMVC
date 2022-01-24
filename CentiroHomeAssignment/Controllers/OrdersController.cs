@@ -82,12 +82,14 @@ namespace ProductOrderWebApp.Controllers
              * The parent list is the three files, and in each of them
              * was the list with orders.
             */
-            var order = new OrdersModel();
-            order.OrderNumber = customerOrderList[0][1];
-            order.OrderDate = Convert.ToDateTime(customerOrderList[0][9]).Date;
-            order.CustomerName = customerOrderList[0][10];
-            order.CustomerNumber = customerOrderList[0][11];
-            order.OrderItems = new List<OrderItem>();
+            var order = new OrdersModel
+            {
+                OrderNumber = customerOrderList[0][1],
+                OrderDate = Convert.ToDateTime(customerOrderList[0][9]).Date,
+                CustomerName = customerOrderList[0][10],
+                CustomerNumber = customerOrderList[0][11],
+                OrderItems = new List<OrderItem>()
+            };
 
             foreach (var list in customerOrderList)
             {
