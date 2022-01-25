@@ -9,7 +9,7 @@ Prerequisites:
 In this folder you will find one solution and two projects:
 
 The project is a .net core 3.1 MVC web application.
-Your task is to read the pipe-separated csv files with order data found in CentiroHomeAssignment/App_Data/
+Your task is to read the pipe-separated csv files with order data found in/App_Data/-folder
 and display the orders in the web-ui. When parsing the files make sure to use proper models that represents the data.
 
 It is up to you how to store the data, be it a database, in application memory or elsewhere.
