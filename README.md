@@ -1,5 +1,6 @@
-# CentiroOrderLine
-Home assignment
+# Product order
+This started as a Home assignment when applying for a job.
+But I will keep improving it.
 
 Prerequisites: 
 - .net core 3.1 - https://dotnet.microsoft.com/download/dotnet-core/3.1
@@ -7,10 +8,7 @@ Prerequisites:
 
 In this folder you will find one solution and two projects:
 
-CentiroHomeAssignment is the application project
-CentiroHomeAssignmentTests can be used to write tests for the application
-
-The CentiroHomeAssignment project is a .net core 3.1 MVC web application.
+The project is a .net core 3.1 MVC web application.
 Your task is to read the pipe-separated csv files with order data found in CentiroHomeAssignment/App_Data/
 and display the orders in the web-ui. When parsing the files make sure to use proper models that represents the data.
 
