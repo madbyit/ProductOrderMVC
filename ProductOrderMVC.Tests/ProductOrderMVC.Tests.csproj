@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CentiroHomeAssignment\ProductOrderMVC.csproj" />
+    <ProjectReference Include="..\ProductOrderMVC\ProductOrderMVC.csproj" />
   </ItemGroup>
 
 </Project>
