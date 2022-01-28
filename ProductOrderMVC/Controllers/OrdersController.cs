@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ProductOrderWebApp.Models;
+using System.Linq;
 
 /* MVC - The Controller handles user's requests and returns a respons */
 namespace ProductOrderWebApp.Controllers
@@ -10,12 +11,13 @@ namespace ProductOrderWebApp.Controllers
     public class OrdersController : Controller
     {
         public List<OrdersModel> _orderlist = new List<OrdersModel>();
+        public List<OrdersModel> _byordernumber = new List<OrdersModel>();
 
         public ActionResult Index()
         {
-            GetAll();
+            //GetAll();
+            //GetByOrderNumber("17835");
             ViewData["OrderList"] = _orderlist;
-
             return View();
         }
 
@@ -30,8 +32,23 @@ namespace ProductOrderWebApp.Controllers
         public IActionResult GetByOrderNumber(string orderNumber)
         {
             // TODO: Return the specific order to a view
+            StreamReadCSV();
 
-            throw new NotImplementedException();
+            foreach (var item in _orderlist)
+            {
+                
+                if (item.OrderNumber == orderNumber)
+                {
+                    Console.WriteLine(item.OrderNumber);
+                    _byordernumber.Add(item);
+                    break;
+                }
+            }
+
+            _orderlist = _byordernumber;
+           
+           return Ok();
+           //throw new NotImplementedException();
         }
 
         public void StreamReadCSV()
