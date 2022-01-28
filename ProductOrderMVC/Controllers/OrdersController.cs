@@ -11,11 +11,10 @@ namespace ProductOrderWebApp.Controllers
     public class OrdersController : Controller
     {
         public List<OrdersModel> _orderlist = new List<OrdersModel>();
-        public List<OrdersModel> _byordernumber = new List<OrdersModel>();
-
+        
         public ActionResult Index()
         {
-            //GetAll();
+            GetAll();
             //GetByOrderNumber("17835");
             ViewData["OrderList"] = _orderlist;
             return View();
@@ -24,19 +23,20 @@ namespace ProductOrderWebApp.Controllers
         
         public IActionResult GetAll()
         {
-            // TODO: Return all orders to a view
+            // Return all orders to a view
             StreamReadCSV();
             return Ok();
         }
 
         public IActionResult GetByOrderNumber(string orderNumber)
         {
-            // TODO: Return the specific order to a view
+            List<OrdersModel> _byordernumber = new List<OrdersModel>();
+
+        // Return the specific order to a view
             StreamReadCSV();
 
             foreach (var item in _orderlist)
             {
-                
                 if (item.OrderNumber == orderNumber)
                 {
                     Console.WriteLine(item.OrderNumber);
@@ -44,11 +44,10 @@ namespace ProductOrderWebApp.Controllers
                     break;
                 }
             }
-
-            _orderlist = _byordernumber;
+    
+           _orderlist = _byordernumber;
            
            return Ok();
-           //throw new NotImplementedException();
         }
 
         public void StreamReadCSV()
