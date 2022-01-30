@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ProductOrderWebApp.Models;
-using System.Linq;
 
 /* MVC - The Controller handles user's requests and returns a respons */
 namespace ProductOrderWebApp.Controllers
@@ -15,22 +14,26 @@ namespace ProductOrderWebApp.Controllers
         public ActionResult Index()
         {
             GetAll();
-            //GetByOrderNumber("17835");
-            ViewData["OrderList"] = _orderlist;
             return View();
         }
 
-        
+        [HttpPost]
         public IActionResult GetAll()
         {
             // Return all orders to a view
+
             StreamReadCSV();
-            return Ok();
+            ViewData["OrderList"] = _orderlist;
+            return View("Index");
         }
 
-        public IActionResult GetByOrderNumber(string orderNumber)
+        [HttpPost]
+        public IActionResult GetByOrderNumber(OrdersModel ord)
         {
+            string orderNumber = ord.GetOrderByNr;
+
             List<OrdersModel> _byordernumber = new List<OrdersModel>();
+            _byordernumber.Clear();
 
         // Return the specific order to a view
             StreamReadCSV();
@@ -39,15 +42,17 @@ namespace ProductOrderWebApp.Controllers
             {
                 if (item.OrderNumber == orderNumber)
                 {
-                    Console.WriteLine(item.OrderNumber);
                     _byordernumber.Add(item);
                     break;
                 }
             }
-    
-           _orderlist = _byordernumber;
-           
-           return Ok();
+            
+            if (_byordernumber.Count > 0)
+                ViewData["OrderList"] = _byordernumber;
+            else
+                ViewData["OrderList"] = _orderlist;
+
+            return View("Index");
         }
 
         public void StreamReadCSV()
@@ -89,11 +94,10 @@ namespace ProductOrderWebApp.Controllers
 
         private void PopulateOrderList(List<List<string>> customerOrderList)
         {
-            /* Like a tree. OOP. Or like a class holding classes. 
-             * List is a class. 
-             * 
+            /* 
              * The first [0] is the index 0 in the parent-list.
              * This task included 3 files with different orders.
+             * 
              * I want to create the orders seperated from each file.
              * The parent list is the three files, and in each of them
              * was the list with orders.

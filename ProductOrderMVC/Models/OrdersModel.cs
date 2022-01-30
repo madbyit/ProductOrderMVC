@@ -23,5 +23,6 @@ namespace ProductOrderWebApp.Models
 
         public List<OrderItem> OrderItems { get; set; }
 
+        public string GetOrderByNr { get; set; }    
     }
 }

@@ -5,6 +5,23 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+
+
+@using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
+{
+<div>
+    <h4>Get order by Ordernumber</h4>
+     @Html.TextBoxFor(m => m.GetOrderByNr)
+    <input type="submit" value="Search order number"  />
+</div>
+}
+@using (Html.BeginForm( "GetAll","Orders", FormMethod.Post))
+{
+<div>
+    <input type="submit" value="GetAll"/>
+</div>
+}
+
 @{
     List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
 
