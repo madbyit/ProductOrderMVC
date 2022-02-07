@@ -1,15 +1,12 @@
 # Product order
-This started as a Home assignment when applying for a job.
-But I will keep improving it.
-
-Prerequisites: 
-- .net core 3.1 - https://dotnet.microsoft.com/download/dotnet-core/3.1
-- Visual Studio/VS Code	
+This started as a Home assignment but I will keep improving it.
 
 In this folder you will find one solution and two projects:
 
-The project is a .net core 3.1 MVC web application.
-Your task is to read the pipe-separated csv files with order data found in/App_Data/-folder
+The project was at start a .net core 3.1 MVC web application.
+I have modifed it to .net 6.0 instead.
+
+The task is to read the pipe-separated csv files with order data found in/App_Data/-folder
 and display the orders in the web-ui. When parsing the files make sure to use proper models that represents the data.
 
 It is up to you how to store the data, be it a database, in application memory or elsewhere.
