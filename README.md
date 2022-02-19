@@ -21,3 +21,8 @@ Proposal of steps to complete:
 
 
 Bonus: Alternative solutions or other means that express your talents as a developer are always welcome. For example create a ui to support new features like editing or creating new orders.
+
+
+NOTES:
+Installed nuget package for postgresl
+$ dotnet add package Npgsql --version 6.0.3
