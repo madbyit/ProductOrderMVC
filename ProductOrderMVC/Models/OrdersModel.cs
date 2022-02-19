@@ -1,9 +1,3 @@
-/*MVC
-M: The Models folder contains model class files. 
-Typically model class includes public properties, 
-which will be used by the application to hold and manipulate application data.
-*/
-
 using System;
 using System.Collections.Generic;
 
