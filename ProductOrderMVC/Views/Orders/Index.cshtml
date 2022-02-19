@@ -6,42 +6,48 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<div style="width: auto; margin-top: 20px;margin-bottom: 20px;">
+    <div style="margin-bottom: 10px;">
+        @using (Html.BeginForm( "UpdateDatabase","Orders", FormMethod.Post))
+        {
+            <input type="submit" value="Update database"/>
+        }
+    </div>
 
-@using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
-{
-<div>
-    <h4>Get order by Ordernumber</h4>
-     @Html.TextBoxFor(m => m.GetOrderByNr)
-    <input type="submit" value="Search order number"  />
+    <div class="row">
+        <div style="display: inline; margin-left: 10px;">
+            @using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
+            {
+                @Html.TextBoxFor(m => m.GetOrderByNr)
+                <input type="submit" value="Search by order number"  />
+            }
+        </div>
+        <div style="display: inline; margin-left: 10px;">
+            @using (Html.BeginForm( "GetAll","Orders", FormMethod.Post))
+            {
+                <input type="submit" value="Get all orders"/>
+            }
+        </div>
+    </div>
 </div>
-}
-@using (Html.BeginForm( "GetAll","Orders", FormMethod.Post))
-{
-<div>
-    <input type="submit" value="GetAll"/>
-</div>
-}
 
 @{
     List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
 
     @foreach (var x in orderList)
     {
+        <h5>Order by order number: @x.OrderNumber</h5>
         <table>
             <tr>
-                <td>Order Number: </td>
-                <td>@x.OrderNumber</td>
-            </tr>
-            <tr>
-                <td>Customer Name: </td>
+                <td>Customer name: </td>
                 <td>@x.CustomerName</td>
             </tr>
             <tr>
-                <td>Order Date: </td>
+                <td>Order date: </td>
                 <td>@x.OrderDate</td>
             </tr>
             <tr>
-                <td>Customer Number: </td>
+                <td>Customer number: </td>
                 <td>@x.CustomerNumber</td>
             </tr> 
          </table>
@@ -49,36 +55,36 @@
             @foreach (var y in x.OrderItems)
             {
             <table>
-            <tr>
-                <td>OrderLine Number: </td>
-                <td>@y.OrderLineNumber.</td>
-            </tr>
-            <tr>
-                <td>Product number: </td>
-                <td>@y.ProductNumber</td>
-            </tr>
-            <tr>
-                <td>Quantity: </td>
-                <td>@y.Quantity</td>
-            </tr>
-            <tr>
-                <td>Name: </td>
-                <td>@y.Name</td>
-            </tr>
-            <tr>
-                <td>Description: </td>
-                <td>@y.Description</td>
-            </tr>
-            <tr>
-                <td>Price: </td>
-                <td>@y.Price</td>
-            </tr>
-            <tr>
-                <td>Product Group: </td>
-                <td>@y.ProductGroup</td>
-            </tr>
+                <tr>
+                    <td>Orderline Number: </td>
+                    <td>@y.OrderLineNumber.</td>
+                </tr>
+                <tr>
+                    <td>Product number: </td>
+                    <td>@y.ProductNumber</td>
+                </tr>
+                <tr>
+                    <td>Quantity: </td>
+                    <td>@y.Quantity</td>
+                </tr>
+                <tr>
+                    <td>Name: </td>
+                    <td>@y.Name</td>
+                </tr>
+                <tr>
+                    <td>Description: </td>
+                    <td>@y.Description</td>
+                </tr>
+                <tr>
+                    <td>Price: </td>
+                    <td>@y.Price</td>
+                </tr>
+                <tr>
+                    <td>Product group: </td>
+                    <td>@y.ProductGroup</td>
+                </tr>
             </table>
         }
+    <br>
     }
-
  }
