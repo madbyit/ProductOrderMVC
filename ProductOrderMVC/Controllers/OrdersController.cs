@@ -9,12 +9,16 @@ namespace ProductOrderWebApp.Controllers
 {
     public class OrdersController : Controller
     {
-        DbProductOrders dbpo;
+        private DbProductOrders dbpo;
         public List<OrdersModel> _orderlist = new List<OrdersModel>();
         
-        public ActionResult Index()
+        public OrdersController()
         {
             dbpo = new DbProductOrders();
+        }
+
+        public ActionResult Index()
+        {
             GetAll();
             return View();
         }
@@ -22,7 +26,7 @@ namespace ProductOrderWebApp.Controllers
         [HttpPost]
         public IActionResult UpdateDatabase()
         {
-            //dbpo.FetchDataFromCSV();
+            dbpo.FetchDataFromCSV();
             ViewData["OrderList"] = _orderlist;
             return View("Index");
         }
