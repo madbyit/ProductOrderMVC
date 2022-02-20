@@ -13,11 +13,11 @@ namespace ProductOrderWebApp
 
         public DbProductOrders()
         {
-            var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders";
+            var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders"; // To Github to fake pw
+            
             connection = new NpgsqlConnection(cs);
             OpenConn(connection);
             DbCreateTable(connection);
-            DbPrintTableColumnHeaders(connection);
         }
 
         private static void OpenConn(NpgsqlConnection connection)
@@ -41,8 +41,18 @@ namespace ProductOrderWebApp
 
             cmd.CommandText = "DROP TABLE IF EXISTS orders";
             cmd.ExecuteNonQuery();
-
-            cmd.CommandText = @"CREATE TABLE orders(id SERIAL PRIMARY KEY, OrderNumber VARCHAR(255), CustomerName VARCHAR(255), CustomerNumber VARCHAR(255))";
+            cmd.CommandText = @"CREATE TABLE orders(id SERIAL PRIMARY KEY, 
+                                                    ordernumber VARCHAR(255),
+                                                    orderlinenumber INT,
+                                                    productnumber VARCHAR(255),
+                                                    quantity VARCHAR(255),
+                                                    name VARCHAR(255),
+                                                    description VARCHAR(255),
+                                                    price VARCHAR(255),
+                                                    productgroup VARCHAR(255),
+                                                    orderdate DATE,
+                                                    customername VARCHAR(255),
+                                                    customernumber VARCHAR(255))";
             cmd.ExecuteNonQuery();
 
             Console.WriteLine("Table orders created");
@@ -88,6 +98,7 @@ namespace ProductOrderWebApp
 
         private void PopulateOrderDB(List<List<string>> customerOrderList)
         {
+            Console.WriteLine("POP!");
             /*
             Prepared statements are faster and guard against SQL injection attacks. 
             The @name and @price are placeholders, which are going to be filled later.
@@ -114,6 +125,7 @@ namespace ProductOrderWebApp
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Row inserted");
+                DbPrintTableColumnHeaders(connection);
             }
         } 
 
@@ -126,13 +138,18 @@ namespace ProductOrderWebApp
 
             using NpgsqlDataReader rdr = cmd.ExecuteReader();
 
-            Console.WriteLine($"{rdr.GetName(0),0} {rdr.GetName(1),4} {rdr.GetName(2),13} {rdr.GetName(3),0}");
 
             while (rdr.Read())
             {
-                Console.WriteLine($"{rdr.GetInt32(0),0} {rdr.GetString(1), 5} {rdr.GetString(2),12} {rdr.GetString(3),14}");
-                Console.WriteLine($"{rdr.GetInt32(4),0} {rdr.GetString(5), 5} {rdr.GetString(6),12} {rdr.GetString(7),14}");
-                Console.WriteLine($"{rdr.GetInt32(8),0} {rdr.GetString(8), 5} {rdr.GetString(10),12}");
+                Console.WriteLine($"{rdr.GetName(0),0} {rdr.GetName(1),4} {rdr.GetName(2),13} {rdr.GetName(3),0}");
+                Console.WriteLine($"{rdr.GetInt32(0),0} {rdr.GetString(1), 5} {rdr.GetInt32(2),12} {rdr.GetString(3),14}");
+                Console.WriteLine();
+                Console.WriteLine($"{rdr.GetName(4),0} {rdr.GetName(5),4} {rdr.GetName(6),13} {rdr.GetName(7),0}");
+                Console.WriteLine($"{rdr.GetString(4),0} {rdr.GetString(5), 5} {rdr.GetString(6),12} {rdr.GetString(7),14}");
+                Console.WriteLine();
+                Console.WriteLine($"{rdr.GetName(8),0} {rdr.GetName(9),4} {rdr.GetName(10),13}");
+                Console.WriteLine($"{rdr.GetString(8),0} {rdr.GetString(8), 5} {rdr.GetDateTime(9),12} {rdr.GetString(10),14}");
+                Console.WriteLine();
             }
         }
         
