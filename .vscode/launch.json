@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/CentiroHomeAssignment/bin/Debug/netcoreapp3.1/CentiroHomeAssignment.dll",
+            "program": "${workspaceFolder}/ProductOrderMVC/bin/Debug/net6.0/ProductOrderMVC.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/CentiroHomeAssignment",
+            "cwd": "${workspaceFolder}/ProductOrderMVC",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
