@@ -7,13 +7,6 @@
 <h1>@ViewData["Title"]</h1>
 
 <div style="width: auto; margin-top: 20px;margin-bottom: 20px;">
-    <div style="margin-bottom: 10px;">
-        @using (Html.BeginForm( "UpdateDatabase","Orders", FormMethod.Post))
-        {
-            <input type="submit" value="Update database"/>
-        }
-    </div>
-
     <div class="row">
         <div style="display: inline; margin-left: 10px;">
             @using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
@@ -36,8 +29,8 @@
 
     @foreach (var x in orderList)
     {
-        <h5>Order by order number: @x.OrderNumber</h5>
-        <table>
+        <h5 style="font-weight: bold;">Order by order number: @x.OrderNumber</h5>
+        <table style="font-weight: bold;">
             <tr>
                 <td>Customer name: </td>
                 <td>@x.CustomerName</td>
