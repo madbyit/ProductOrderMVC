@@ -27,54 +27,54 @@
 @{
     List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
 
-    @foreach (var x in orderList)
+    @foreach (var customer in orderList)
     {
-        <h5 style="font-weight: bold;">Order by order number: @x.OrderNumber</h5>
+        <h5 style="font-weight: bold;">Order by order number: @customer.OrderNumber</h5>
         <table style="font-weight: bold;">
             <tr>
                 <td>Customer name: </td>
-                <td>@x.CustomerName</td>
+                <td>@customer.CustomerName</td>
             </tr>
             <tr>
                 <td>Order date: </td>
-                <td>@x.OrderDate</td>
+                <td>@customer.OrderDate</td>
             </tr>
             <tr>
                 <td>Customer number: </td>
-                <td>@x.CustomerNumber</td>
+                <td>@customer.CustomerNumber</td>
             </tr> 
          </table>
 
-            @foreach (var y in x.OrderItems)
+            @foreach (var orderitems in customer.OrderItems)
             {
             <table>
                 <tr>
                     <td>Orderline Number: </td>
-                    <td>@y.OrderLineNumber.</td>
+                    <td>@orderitems.OrderLineNumber.</td>
                 </tr>
                 <tr>
                     <td>Product number: </td>
-                    <td>@y.ProductNumber</td>
+                    <td>@orderitems.ProductNumber</td>
                 </tr>
                 <tr>
                     <td>Quantity: </td>
-                    <td>@y.Quantity</td>
+                    <td>@orderitems.Quantity</td>
                 </tr>
                 <tr>
                     <td>Name: </td>
-                    <td>@y.Name</td>
+                    <td>@orderitems.Name</td>
                 </tr>
                 <tr>
                     <td>Description: </td>
-                    <td>@y.Description</td>
+                    <td>@orderitems.Description</td>
                 </tr>
                 <tr>
                     <td>Price: </td>
-                    <td>@y.Price</td>
+                    <td>@orderitems.Price</td>
                 </tr>
                 <tr>
                     <td>Product group: </td>
-                    <td>@y.ProductGroup</td>
+                    <td>@orderitems.ProductGroup</td>
                 </tr>
             </table>
         }

@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ProductOrderWebApp.Models;
+using ProductOrderWebApp.Database;
+using Npgsql;
 
 /* MVC - The Controller handles user's requests and returns a respons */
 namespace ProductOrderWebApp.Controllers
@@ -12,31 +14,19 @@ namespace ProductOrderWebApp.Controllers
         private DbProductOrders dbpo;
         public List<OrdersModel> _orderlist = new List<OrdersModel>();
         
-        public OrdersController()
-        {
-            dbpo = new DbProductOrders();
-        }
-
         public ActionResult Index()
         {
             GetAll();
+            ViewData["OrderList"] = _orderlist;
             return View();
         }
 
-        [HttpPost]
-        public IActionResult UpdateDatabase()
-        {
-            dbpo.FetchDataFromCSV();
-            ViewData["OrderList"] = _orderlist;
-            return View("Index");
-        }
-
-        [HttpPost]
+       [HttpPost]
         public IActionResult GetAll()
         {
-            // Return all orders to a view
-
-            StreamReadCSV();
+            /// Return all orders to a view
+            GetAllData();
+            
             ViewData["OrderList"] = _orderlist;
             return View("Index");
         }
@@ -67,6 +57,29 @@ namespace ProductOrderWebApp.Controllers
                 ViewData["OrderList"] = _orderlist;
 
             return View("Index");
+        }
+
+        private void GetAllData()
+        {
+            dbpo = new DbProductOrders();
+
+            List<string> str_list;
+            List<List<string>> customerOrderList = new List<List<string>>();
+
+            var sql = "SELECT * FROM orders";
+            using var cmd = new NpgsqlCommand(sql, dbpo.Connection);
+            using NpgsqlDataReader nrd = cmd.ExecuteReader();
+
+            while(nrd.Read())
+            {
+                str_list = new List<string>();
+                for (int str_index = 1; str_index <= 11; str_index++)
+                {
+                   str_list.Add(nrd.GetString(str_index));
+                }
+                customerOrderList.Add(str_list);
+            }
+            PublishOrderList(customerOrderList);
         }
 
         public void StreamReadCSV()
@@ -140,6 +153,37 @@ namespace ProductOrderWebApp.Controllers
             }
 
             _orderlist.Add(order);
-        }      
+        }
+
+        private void PublishOrderList(List<List<string>> customerOrderList)
+        {
+            
+           OrdersModel order;
+
+            foreach (var list in customerOrderList)
+            {
+                order = new OrdersModel
+                {
+                    OrderNumber = list[0],
+                    OrderDate = Convert.ToDateTime(list[8]).Date,
+                    CustomerName = list[9],
+                    CustomerNumber = list[10],
+                    OrderItems = new List<OrderItem>()
+                 };
+                
+                order.OrderItems.Add(new OrderItem
+                {
+                    OrderLineNumber = Convert.ToInt32(list[1]),
+                    ProductNumber = list[2],
+                    Quantity = list[3],
+                    Name = list[4],
+                    Description = list[5],
+                    Price = list[6],
+                    ProductGroup = list[7],
+                });
+                _orderlist.Add(order);
+            }        
+            
+        }           
     }
 }
