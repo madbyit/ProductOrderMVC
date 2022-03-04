@@ -5,12 +5,8 @@ using Npgsql;
 
 namespace ProductOrderWebApp.Database
 {
-    /* Analyze the CSV files and create a model that can represent 
-    the order information contained in the files */
     public class DbProductOrders
     {
-        // NpgsqlConnection connection;
-
         public NpgsqlConnection Connection
         {
             get; set;
@@ -29,7 +25,18 @@ namespace ProductOrderWebApp.Database
             try
             {   
                 connection.Open();  
-                Console.WriteLine("Database is : " + connection.FullState);             
+            }
+            catch (Exception exp)
+            {                
+                Console.WriteLine("Error open datbase connection: " + exp );
+            }
+        }
+        
+        private static void CloseConn(NpgsqlConnection connection)
+        {
+            try
+            {   
+                connection.Close();  
             }
             catch (Exception exp)
             {                
@@ -40,11 +47,10 @@ namespace ProductOrderWebApp.Database
         private void DbCreateTable()
         {
             NpgsqlCommand cmd = new NpgsqlCommand();
-
             cmd.Connection = Connection;
-
             cmd.CommandText = "DROP TABLE IF EXISTS orders";
             cmd.ExecuteNonQuery();
+
             cmd.CommandText = @"CREATE TABLE orders(id SERIAL PRIMARY KEY, 
                                                     ordernumber VARCHAR(255),
                                                     orderlinenumber VARCHAR(255),
@@ -58,15 +64,11 @@ namespace ProductOrderWebApp.Database
                                                     customername VARCHAR(255),
                                                     customernumber VARCHAR(255))";
             cmd.ExecuteNonQuery();
-
-            Console.WriteLine("Table orders created");
-
             CsvFileHandler();
         }
 
         public void CsvFileHandler()
         {
-            Console.WriteLine("CsvFileHandler");
             string filePath = String.Empty;
             filePath = Environment.CurrentDirectory + "/App_Data/";
             string[] AllFiles = Directory.GetFiles(@filePath);
@@ -105,12 +107,6 @@ namespace ProductOrderWebApp.Database
 
         private void PopulateOrderDB(List<List<string>> customerOrderList)
         {
-            Console.WriteLine("Populate order to database");
-            /*
-            Prepared statements are faster and guard against SQL injection attacks. 
-            The @name and @price are placeholders, which are going to be filled later.
-            Values are bound to the placeholders with the AddWithValue method.
-            */
             var sql = "INSERT INTO orders(ordernumber, orderlinenumber, productnumber, quantity, name, description, price, productgroup, orderdate, customername, customernumber) VALUES(@ordernumber, @orderlinenumber, @productnumber, @quantity, @name, @description, @price, @productgroup, @orderdate, @customername, @customernumber)";
             
             foreach (var list in customerOrderList)
