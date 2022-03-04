@@ -4,7 +4,7 @@
     ViewData["Title"] = "Orders";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="animation: order-marquee 3s linear infinite;">@ViewData["Title"]</h1>
 
 <div style="width: auto; margin-top: 20px;margin-bottom: 20px;">
     <div class="row">
@@ -23,6 +23,14 @@
         </div>
     </div>
 </div>
+
+<style>
+    @@keyframes order-marquee 
+    {
+        from {transform: translateX(-50%); }
+        to {transform: translateX(50%); }
+    }
+</style>
 
 @{
     List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
