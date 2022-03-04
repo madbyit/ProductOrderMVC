@@ -18,8 +18,7 @@ namespace ProductOrderWebApp.Database
 
         public DbProductOrders()
         {
-            var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders"; // To Github to fake pw
-            
+            var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders"; // To Github with fake pw
             Connection = new NpgsqlConnection(cs);
             OpenConn(Connection);
             DbCreateTable();

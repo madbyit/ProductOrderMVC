@@ -26,36 +26,36 @@ namespace ProductOrderWebApp.Controllers
         {
             /// Return all orders to a view
             GetAllData();
+            //StreamReadCSV();
             
             ViewData["OrderList"] = _orderlist;
             return View("Index");
         }
 
         [HttpPost]
-        public IActionResult GetByOrderNumber(OrdersModel ord)
+        public IActionResult GetByOrderNumber(string orderNumber)
         {
-            string orderNumber = ord.GetOrderByNr;
+            dbpo = new DbProductOrders();
 
-            List<OrdersModel> _byordernumber = new List<OrdersModel>();
-            _byordernumber.Clear();
+            List<string> str_list = new List<string>();
+            List<List<string>> byOrderNumberList = new List<List<string>>();
 
-        // Return the specific order to a view
-            StreamReadCSV();
+            var sql = "SELECT * FROM orders WHERE ordernumber='"+orderNumber+"'";
+            using var cmd = new NpgsqlCommand(sql, dbpo.Connection);
+            using NpgsqlDataReader nrd = cmd.ExecuteReader();
 
-            foreach (var item in _orderlist)
+            while (nrd.Read())
             {
-                if (item.OrderNumber == orderNumber)
+                str_list = new List<string>(); 
+                for (int str_index = 1; str_index <= 11; str_index++)
                 {
-                    _byordernumber.Add(item);
-                    break;
+                   str_list.Add(nrd.GetString(str_index));
                 }
+                byOrderNumberList.Add(str_list);
             }
+            PublishOrderList(byOrderNumberList);
             
-            if (_byordernumber.Count > 0)
-                ViewData["OrderList"] = _byordernumber;
-            else
-                ViewData["OrderList"] = _orderlist;
-
+            ViewData["OrderList"] = _orderlist;
             return View("Index");
         }
 

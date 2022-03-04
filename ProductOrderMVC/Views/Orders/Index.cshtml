@@ -11,7 +11,7 @@
         <div style="display: inline; margin-left: 10px;">
             @using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
             {
-                @Html.TextBoxFor(m => m.GetOrderByNr)
+                @Html.TextBox("orderNumber")
                 <input type="submit" value="Search by order number"  />
             }
         </div>
