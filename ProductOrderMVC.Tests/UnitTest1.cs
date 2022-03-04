@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductOrderWebApp.Controllers;
 
+using System;
 
 namespace ProductOrderWebApp.Tests
 {
@@ -12,8 +13,17 @@ namespace ProductOrderWebApp.Tests
         {
             var controller = new OrdersController();
 
-            controller.StreamReadCSV();
-            Assert.IsTrue(controller._orderlist.Count == 3);
+            controller.GetAllData();
+            Assert.IsTrue(controller._orderlist.Count == 14);
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            var controller = new OrdersController();
+
+            controller.GetByOrderNumber("17642");
+            Assert.IsTrue(controller._orderlist.Count == 5);
         }
     }
 }
