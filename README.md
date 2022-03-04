@@ -4,7 +4,7 @@
 ## General
 In this folder you will find one solution and two projects:
 I run this on VS Code in Linux.
-.net6.0  dotnet core 
+ASP.NET Core Runtime 6.0.2
 
 ## The task
 The task is to read the pipe-separated csv files with order data found in/App_Data/-folder and display the orders in the web-ui. 

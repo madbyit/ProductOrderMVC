@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ProductOrderWebApp.Models;
 using ProductOrderWebApp.Database;
 using Npgsql;
 
-/* MVC - The Controller handles user's requests and returns a respons */
 namespace ProductOrderWebApp.Controllers
 {
     public class OrdersController : Controller
@@ -25,6 +23,7 @@ namespace ProductOrderWebApp.Controllers
         public IActionResult GetAll()
         {
             /// Return all orders to a view
+            
             GetAllData();
             ViewData["OrderList"] = _orderlist;
             return View("Index");
@@ -59,7 +58,7 @@ namespace ProductOrderWebApp.Controllers
             return View("Index");
         }
 
-        private void GetAllData()
+        public void GetAllData()
         {
             dbpo = new DbProductOrders();
 
