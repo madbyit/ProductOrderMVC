@@ -109,7 +109,15 @@ namespace ProductOrderWebApp.Controllers
                 });
                 _orderlist.Add(order);
             }        
-            
+        }
+
+        [HttpPost]
+        public IActionResult AddOrder(string addOrder)
+        {
+            Console.WriteLine("Added order: " + addOrder);
+            GetAllData();
+            ViewData["OrderList"] = _orderlist;
+            return View("Index");
         }           
     }
 }
