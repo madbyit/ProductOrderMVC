@@ -4,88 +4,115 @@
     ViewData["Title"] = "Orders";
 }
 
-<h1 style="animation: order-marquee 3s linear infinite;">@ViewData["Title"]</h1>
-
-<div style="width: auto; margin-top: 20px;margin-bottom: 20px;">
-    <div class="row">
-        <div style="display: inline; margin-left: 10px;">
-            @using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
-            {
-                @Html.TextBox("orderNumber")
-                <input type="submit" value="Search by order number"  />
-            }
+<h1 style="position: relative; -webkit-animation: mad-anim 5s infinite; 
+            -webkit-animation-direction: alternate;animation: mad-anim 5s infinite; 
+            animation-direction: alternate; font-family: OCR A Std, monospace;">@ViewData["Title"]</h1>
+<div>
+    <div style="width: 50%; float:left; margin-top: 20px; margin-bottom: 20px;">
+        <div>
+            <h2>New World Order</h2>
         </div>
-        <div style="display: inline; margin-left: 10px;">
-            @using (Html.BeginForm( "GetAll","Orders", FormMethod.Post))
-            {
-                <input type="submit" value="Get all orders"/>
-            }
+        <div class="row">
+            <div style="display: inline; margin-left: 10px; box-shadow: 5px 2px 2px grey;">
+                @using (Html.BeginForm("AddOrder","Orders", FormMethod.Post))
+                {
+                    @Html.TextBox("addOrder")
+                    <input type="submit" value="Add new order" style="box-shadow: 5px 2px 2px grey;"/>
+                }
+            </div>
+        </div>
+    </div>
+    <div style="width: 50%; float:right; margin-top: 20px; margin-bottom: 20px;">
+        <div>
+            <h2>Old World Order</h2>
+        </div>
+        <div class="row">
+            <div style="display: inline; margin-left: 10px; box-shadow: 5px 2px 2px grey;">
+                @using (Html.BeginForm( "GetByOrderNumber","Orders", FormMethod.Post))
+                {
+                    @Html.TextBox("orderNumber")
+                    <input type="submit" value="Search by order number" style="box-shadow: 5px 2px 2px grey;"/>
+                }
+            </div>
+            <div style="display: inline; margin-left: 10px;">
+                @using (Html.BeginForm( "GetAll","Orders", FormMethod.Post))
+                {
+                    <input type="submit" value="Get all orders" style="box-shadow: 5px 2px 2px grey;"/>
+                }
+            </div>
         </div>
     </div>
 </div>
-
 <style>
-    @@keyframes order-marquee 
-    {
-        from {transform: translateX(-50%); }
-        to {transform: translateX(50%); }
+    /* Chrome, Safari, Opera */
+    @@-webkit-keyframes mad-anim {
+        0%   {left: 0px; top: 0px;}
+        50%  {left: 200px; top: 0px;}
+        100% {left: 0px; top: 0px;}
+    }
+
+    @@keyframes mad-anim {
+        0%   {left: 0px; top: 0px;}
+        50%  {left: 200px; top: 0px;}
+        100% {left: 0px; top: 0px;}
     }
 </style>
 
-@{
-    List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
-
-    @foreach (var customer in orderList)
-    {
-        <h5 style="font-weight: bold;">Order by order number: @customer.OrderNumber</h5>
-        <table style="font-weight: bold;">
-            <tr>
-                <td>Customer name: </td>
-                <td>@customer.CustomerName</td>
-            </tr>
-            <tr>
-                <td>Order date: </td>
-                <td>@customer.OrderDate</td>
-            </tr>
-            <tr>
-                <td>Customer number: </td>
-                <td>@customer.CustomerNumber</td>
-            </tr> 
-         </table>
-
-            @foreach (var orderitems in customer.OrderItems)
+<div style="width: 50%; float:right;">
+    @{
+        List<OrdersModel> orderList = (List < OrdersModel >) ViewData["OrderList"];
+            @foreach (var customer in orderList)
             {
-            <table>
-                <tr>
-                    <td>Orderline Number: </td>
-                    <td>@orderitems.OrderLineNumber.</td>
-                </tr>
-                <tr>
-                    <td>Product number: </td>
-                    <td>@orderitems.ProductNumber</td>
-                </tr>
-                <tr>
-                    <td>Quantity: </td>
-                    <td>@orderitems.Quantity</td>
-                </tr>
-                <tr>
-                    <td>Name: </td>
-                    <td>@orderitems.Name</td>
-                </tr>
-                <tr>
-                    <td>Description: </td>
-                    <td>@orderitems.Description</td>
-                </tr>
-                <tr>
-                    <td>Price: </td>
-                    <td>@orderitems.Price</td>
-                </tr>
-                <tr>
-                    <td>Product group: </td>
-                    <td>@orderitems.ProductGroup</td>
-                </tr>
-            </table>
-        }
-    <br>
+                <h5 style="font-weight: bold;">Order by order number: @customer.OrderNumber</h5>
+                <table style="font-weight: bold;">
+                    <tr>
+                        <td>Customer name: </td>
+                        <td>@customer.CustomerName</td>
+                    </tr>
+                    <tr>
+                        <td>Order date: </td>
+                        <td>@customer.OrderDate</td>
+                    </tr>
+                    <tr>
+                        <td>Customer number: </td>
+                        <td>@customer.CustomerNumber</td>
+                    </tr> 
+                </table>
+
+                    @foreach (var orderitems in customer.OrderItems)
+                    {
+                    <table>
+                        <tr>
+                            <td>Orderline Number: </td>
+                            <td>@orderitems.OrderLineNumber.</td>
+                        </tr>
+                        <tr>
+                            <td>Product number: </td>
+                            <td>@orderitems.ProductNumber</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity: </td>
+                            <td>@orderitems.Quantity</td>
+                        </tr>
+                        <tr>
+                            <td>Name: </td>
+                            <td>@orderitems.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Description: </td>
+                            <td>@orderitems.Description</td>
+                        </tr>
+                        <tr>
+                            <td>Price: </td>
+                            <td>@orderitems.Price</td>
+                        </tr>
+                        <tr>
+                            <td>Product group: </td>
+                            <td>@orderitems.ProductGroup</td>
+                        </tr>
+                    </table>
+                }
+            <br>
+        } 
     }
- }
+ </div>  
