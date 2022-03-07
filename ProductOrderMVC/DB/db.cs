@@ -18,6 +18,8 @@ namespace ProductOrderWebApp.Database
             Connection = new NpgsqlConnection(cs);
             OpenConn(Connection);
             DbCreateTable();
+            CsvFileHandler();
+        
         }
 
         private static void OpenConn(NpgsqlConnection connection)
@@ -40,7 +42,7 @@ namespace ProductOrderWebApp.Database
             }
             catch (Exception exp)
             {                
-                Console.WriteLine("Error open datbase connection: " + exp );
+                Console.WriteLine("Error closing database connection: " + exp );
             }
         }
 
@@ -64,7 +66,6 @@ namespace ProductOrderWebApp.Database
                                                     customername VARCHAR(255),
                                                     customernumber VARCHAR(255))";
             cmd.ExecuteNonQuery();
-            CsvFileHandler();
         }
 
         public void CsvFileHandler()
