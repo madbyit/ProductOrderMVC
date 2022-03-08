@@ -4,13 +4,11 @@
     ViewData["Title"] = "Orders";
 }
 
-<h1 style="position: relative; -webkit-animation: mad-anim 5s infinite; 
-            -webkit-animation-direction: alternate;animation: mad-anim 5s infinite; 
-            animation-direction: alternate; font-family: OCR A Std, monospace;">@ViewData["Title"]</h1>
+<h1 style="position: relative; font-family: OCR A Std, monospace;">@ViewData["Title"]</h1>
 <div>
     <div style="width: 50%; float:left; margin-top: 20px; margin-bottom: 20px;">
         <div>
-            <h2>New World Order</h2>
+            <h2>New orders</h2>
         </div>
         <div class="row">
             <div style="display: inline; margin-left: 10px; box-shadow: 5px 2px 2px grey;">
@@ -24,7 +22,7 @@
     </div>
     <div style="width: 50%; float:right; margin-top: 20px; margin-bottom: 20px;">
         <div>
-            <h2>Old World Order</h2>
+            <h2>Orders</h2>
         </div>
         <div class="row">
             <div style="display: inline; margin-left: 10px; box-shadow: 5px 2px 2px grey;">
@@ -43,20 +41,6 @@
         </div>
     </div>
 </div>
-<style>
-    /* Chrome, Safari, Opera */
-    @@-webkit-keyframes mad-anim {
-        0%   {left: 0px; top: 0px;}
-        50%  {left: 200px; top: 0px;}
-        100% {left: 0px; top: 0px;}
-    }
-
-    @@keyframes mad-anim {
-        0%   {left: 0px; top: 0px;}
-        50%  {left: 200px; top: 0px;}
-        100% {left: 0px; top: 0px;}
-    }
-</style>
 
 <div style="width: 50%; float:right;">
     @{
