@@ -112,12 +112,27 @@ namespace ProductOrderWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOrder(string addOrder)
+        public IActionResult AddOrder(string addOrderNr, string addCustName, string addOrderDate, 
+                                        string addCustNr, string addOrderlineNr, string addProdNr, 
+                                        string addQuantity, string addOrderName, string addOrderDesc, 
+                                        string addOrderPrice, string addOrderProdGrp)
         {
-            Console.WriteLine("Added order: " + addOrder);
-            GetAllData();
-            ViewData["OrderList"] = _orderlist;
-            return View("Index");
+            Console.WriteLine("Added order: " + addOrderNr);
+            Console.WriteLine("Added order: " + addCustName);
+            Console.WriteLine("Added order: " + addOrderDate);
+            Console.WriteLine("Added order: " + addCustNr);
+            Console.WriteLine("Added order: " + addOrderlineNr);
+            Console.WriteLine("Added order: " + addProdNr);
+            Console.WriteLine("Added order: " + addQuantity);
+            Console.WriteLine("Added order: " + addOrderName);
+            Console.WriteLine("Added order: " + addOrderDesc);
+            Console.WriteLine("Added order: " + addOrderPrice);
+            Console.WriteLine("Added order: " + addOrderProdGrp);
+
+            return Redirect("localhost:5001/Orders");
+            // GetAllData();
+            // ViewData["OrderList"] = _orderlist;
+            // return View("Index");
         }           
     }
 }

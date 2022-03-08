@@ -11,11 +11,57 @@
             <h2>New orders</h2>
         </div>
         <div class="row">
-            <div style="display: inline; margin-left: 10px; box-shadow: 5px 2px 2px grey;">
+            <div style="display: inline; margin-left: 10px; margin-bottom: 5px;">
                 @using (Html.BeginForm("AddOrder","Orders", FormMethod.Post))
                 {
-                    @Html.TextBox("addOrder")
-                    <input type="submit" value="Add new order" style="box-shadow: 5px 2px 2px grey;"/>
+                    <table style="margin: 5px;">
+                    <tr>
+                        <td>Order number [5 digits]: </td>
+                        <td>@Html.TextBox("addOrderNr")</td>
+                    </tr>
+                    <tr>
+                        <td>Customer name: </td>
+                        <td>@Html.TextBox("addCustName")</td>
+                    </tr>
+                    <tr>
+                        <td>Order date [YYYY-MM-DD]: </td>
+                        <td>@Html.TextBox("addOrderDate")</td>
+                    </tr>
+                    <tr>
+                        <td>Customer number [6 digits]: </td>
+                        <td>@Html.TextBox("addCustNr")</td>
+                    </tr>
+                    <tr>
+                        <td>Orderline number [ex 0001]: </td>
+                        <td>@Html.TextBox("addOrderlineNr")</td>
+                    </tr>
+                    <tr>
+                        <td>Product number: </td>
+                        <td>@Html.TextBox("addProdNr")</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity: </td>
+                        <td>@Html.TextBox("addQuantity")</td>
+                    </tr>
+                    <tr>
+                        <td>Name: </td>
+                        <td>@Html.TextBox("addOrderName")</td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td>@Html.TextBox("addOrderDesc")</td>
+                    </tr>
+                    <tr>
+                        <td>Price [ex 1.0]: </td>
+                        <td>@Html.TextBox("addOrderPrice")</td>
+                    </tr>
+                    <tr>
+                        <td>Product group: </td>
+                        <td>@Html.TextBox("addOrderProdGrp")</td>
+                    </tr>
+                </table>
+                    <input type="submit" value="Submit new order" style="box-shadow: 5px 2px 2px grey;"/>
+                    <input type="reset" value="Clear" style="box-shadow: 5px 2px 2px grey;"/>
                 }
             </div>
         </div>
@@ -67,7 +113,7 @@
                     {
                     <table>
                         <tr>
-                            <td>Orderline Number: </td>
+                            <td>Orderline number: </td>
                             <td>@orderitems.OrderLineNumber.</td>
                         </tr>
                         <tr>
