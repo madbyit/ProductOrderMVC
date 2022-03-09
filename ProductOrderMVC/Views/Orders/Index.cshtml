@@ -6,6 +6,12 @@
 
 <h1 style="position: relative; font-family: OCR A Std, monospace;">@ViewData["Title"]</h1>
 <div>
+    <div style="display: inline; margin-left: 10px; box-shadow: 5px 2px 2px grey;">
+        @using (Html.BeginForm( "Start","Orders", FormMethod.Post))
+        {
+            <input type="submit" value="Start and reset from CSV" style="box-shadow: 5px 2px 2px grey;"/>
+        }
+    </div>
     <div style="width: 50%; float:left; margin-top: 20px; margin-bottom: 20px;">
         <div>
             <h2>New orders</h2>
@@ -61,7 +67,7 @@
                     </tr>
                 </table>
                     <input type="submit" value="Submit new order" style="box-shadow: 5px 2px 2px grey;"/>
-                    <input type="reset" value="Clear" style="box-shadow: 5px 2px 2px grey;"/>
+                    <input type="reset" value="Clear form" style="box-shadow: 5px 2px 2px grey;"/>
                 }
             </div>
         </div>

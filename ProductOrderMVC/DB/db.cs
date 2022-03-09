@@ -12,21 +12,14 @@ namespace ProductOrderWebApp.Database
             get; set;
         }
 
-        public DbProductOrders()
-        {
-            var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders"; // To Github with fake pw
-            Connection = new NpgsqlConnection(cs);
-            OpenConn(Connection);
-            DbCreateTable();
-            CsvFileHandler();
-        
-        }
-
-        private static void OpenConn(NpgsqlConnection connection)
+        public void OpenConn()
         {
             try
             {   
-                connection.Open();  
+                var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders"; // To Github with fake pw
+                Connection = new NpgsqlConnection(cs);
+                Connection.Open();
+                Console.WriteLine("Connection is: " + Connection.State);
             }
             catch (Exception exp)
             {                
@@ -34,11 +27,12 @@ namespace ProductOrderWebApp.Database
             }
         }
         
-        private static void CloseConn(NpgsqlConnection connection)
+        public void CloseConn()
         {
             try
             {   
-                connection.Close();  
+                Connection.Close();
+                Console.WriteLine("Connection is: " + Connection.State);
             }
             catch (Exception exp)
             {                
@@ -46,8 +40,10 @@ namespace ProductOrderWebApp.Database
             }
         }
 
-        private void DbCreateTable()
+        public void DbCreateTable()
         {
+            Console.WriteLine("Drop and create table...");
+
             NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = Connection;
             cmd.CommandText = "DROP TABLE IF EXISTS orders";
@@ -106,8 +102,9 @@ namespace ProductOrderWebApp.Database
             PopulateOrderDB(customerOrderList);
         }
 
-        private void PopulateOrderDB(List<List<string>> customerOrderList)
+        public void PopulateOrderDB(List<List<string>> customerOrderList)
         {
+            Console.WriteLine("Populate order to user interface...");
             var sql = "INSERT INTO orders(ordernumber, orderlinenumber, productnumber, quantity, name, description, price, productgroup, orderdate, customername, customernumber) VALUES(@ordernumber, @orderlinenumber, @productnumber, @quantity, @name, @description, @price, @productgroup, @orderdate, @customername, @customernumber)";
             
             foreach (var list in customerOrderList)

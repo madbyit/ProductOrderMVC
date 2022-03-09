@@ -9,7 +9,6 @@ namespace ProductOrderWebApp.Controllers
 {
     public class OrdersController : Controller
     {
-        private DbProductOrders dbpo;
         public List<OrdersModel> _orderlist = new List<OrdersModel>();
         
         public ActionResult Index()
@@ -17,6 +16,18 @@ namespace ProductOrderWebApp.Controllers
             GetAll();
             ViewData["OrderList"] = _orderlist;
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Start()
+        {
+            DbProductOrders dbpo = new DbProductOrders();
+            dbpo.OpenConn();
+            dbpo.DbCreateTable();
+            dbpo.CsvFileHandler();
+            dbpo.CloseConn();
+            GetAll();
+            return Redirect("localhost:5001/Orders");
         }
 
        [HttpPost]
@@ -34,7 +45,8 @@ namespace ProductOrderWebApp.Controllers
         {
             /// Return specific order to a view
             
-            dbpo = new DbProductOrders();
+            DbProductOrders dbpo = new DbProductOrders();
+            dbpo.OpenConn();
 
             List<string> str_list = new List<string>();
             List<List<string>> byOrderNumberList = new List<List<string>>();
@@ -54,13 +66,16 @@ namespace ProductOrderWebApp.Controllers
             }
             PublishOrderList(byOrderNumberList);
             
+            dbpo.CloseConn();
+            
             ViewData["OrderList"] = _orderlist;
             return View("Index");
         }
 
         public void GetAllData()
         {
-            dbpo = new DbProductOrders();
+            DbProductOrders dbpo = new DbProductOrders();
+            dbpo.OpenConn();
 
             List<string> str_list;
             List<List<string>> customerOrderList = new List<List<string>>();
@@ -79,6 +94,7 @@ namespace ProductOrderWebApp.Controllers
                 customerOrderList.Add(str_list);
             }
             PublishOrderList(customerOrderList);
+            dbpo.CloseConn();
         }
 
         private void PublishOrderList(List<List<string>> customerOrderList)
@@ -117,22 +133,45 @@ namespace ProductOrderWebApp.Controllers
                                         string addQuantity, string addOrderName, string addOrderDesc, 
                                         string addOrderPrice, string addOrderProdGrp)
         {
-            Console.WriteLine("Added order: " + addOrderNr);
-            Console.WriteLine("Added order: " + addCustName);
-            Console.WriteLine("Added order: " + addOrderDate);
-            Console.WriteLine("Added order: " + addCustNr);
-            Console.WriteLine("Added order: " + addOrderlineNr);
-            Console.WriteLine("Added order: " + addProdNr);
-            Console.WriteLine("Added order: " + addQuantity);
-            Console.WriteLine("Added order: " + addOrderName);
-            Console.WriteLine("Added order: " + addOrderDesc);
-            Console.WriteLine("Added order: " + addOrderPrice);
-            Console.WriteLine("Added order: " + addOrderProdGrp);
+            List<string> order = new List<string>();
+            List<List<string>> orderList = new List<List<string>>();
+        
+            order.Add("");
+            order.Add(addOrderNr);
+            order.Add(addOrderlineNr);
+            order.Add(addProdNr);
+            order.Add(addQuantity);
+            order.Add(addOrderName);
+            order.Add(addOrderDesc);
+            order.Add(addOrderPrice);
+            order.Add(addOrderProdGrp);
+            order.Add(addOrderDate);
+            order.Add(addCustName);
+            order.Add(addCustNr);
+            
+            bool abort = false;
 
-            return Redirect("localhost:5001/Orders");
-            // GetAllData();
-            // ViewData["OrderList"] = _orderlist;
-            // return View("Index");
+            foreach(string str in order)
+            {
+                if (str == null)
+                {
+                    abort = true;
+                    break;
+                }
+            }
+
+            if (!abort)
+            {
+                DbProductOrders dbpo = new DbProductOrders();
+                dbpo.OpenConn();
+                orderList.Add(order);
+                dbpo.PopulateOrderDB(orderList);
+                dbpo.CloseConn();
+            }
+
+            ViewData["OrderList"] = _orderlist;
+            GetAll();
+            return View("Index");
         }           
     }
 }
