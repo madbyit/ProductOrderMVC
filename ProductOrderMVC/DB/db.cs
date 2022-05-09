@@ -16,7 +16,7 @@ namespace ProductOrderWebApp.Database
         {
             try
             {   
-                var cs = "Server=localhost;Port=5432;UserId=dbuser;Password=My-$3cr37-P@55w0rD;Database=productorders"; // To Github with fake pw
+                var cs = "Server=localhost;Port=5432;Database=productorders;UserId=dbuser;Password=My-$3cr37-P@55w0rD"; // To Github with fake pw
                 Connection = new NpgsqlConnection(cs);
                 Connection.Open();
                 Console.WriteLine("Connection is: " + Connection.State);
