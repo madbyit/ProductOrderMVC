@@ -9,7 +9,7 @@ namespace ProductOrderWebApp.Controllers
 {
     public class OrdersController : Controller
     {
-        public List<OrdersModel> _orderlist = new List<OrdersModel>();
+        public List<OrdersModel> _orderlist = new();
         
         public ActionResult Index()
         {
@@ -21,7 +21,7 @@ namespace ProductOrderWebApp.Controllers
         [HttpPost]
         public IActionResult Start()
         {
-            DbProductOrders dbpo = new DbProductOrders();
+            DbProductOrders dbpo = new();
             dbpo.OpenConn();
             dbpo.DbCreateTable();
             dbpo.CsvFileHandler();
@@ -34,7 +34,6 @@ namespace ProductOrderWebApp.Controllers
         public IActionResult GetAll()
         {
             /// Return all orders to a view
-            
             GetAllData();
             ViewData["OrderList"] = _orderlist;
             return View("Index");
@@ -45,11 +44,11 @@ namespace ProductOrderWebApp.Controllers
         {
             /// Return specific order to a view
             
-            DbProductOrders dbpo = new DbProductOrders();
+            DbProductOrders dbpo = new();
             dbpo.OpenConn();
 
-            List<string> str_list = new List<string>();
-            List<List<string>> byOrderNumberList = new List<List<string>>();
+            List<string> str_list = new();
+            List<List<string>> byOrderNumberList = new();
 
             var sql = "SELECT * FROM orders WHERE ordernumber='"+orderNumber+"'";
             using var cmd = new NpgsqlCommand(sql, dbpo.Connection);
@@ -74,11 +73,11 @@ namespace ProductOrderWebApp.Controllers
 
         public void GetAllData()
         {
-            DbProductOrders dbpo = new DbProductOrders();
+            DbProductOrders dbpo = new();
             dbpo.OpenConn();
 
             List<string> str_list;
-            List<List<string>> customerOrderList = new List<List<string>>();
+            List<List<string>> customerOrderList = new();
 
             var sql = "SELECT * FROM orders";
             using var cmd = new NpgsqlCommand(sql, dbpo.Connection);
@@ -133,8 +132,8 @@ namespace ProductOrderWebApp.Controllers
                                         string addQuantity, string addOrderName, string addOrderDesc, 
                                         string addOrderPrice, string addOrderProdGrp)
         {
-            List<string> order = new List<string>();
-            List<List<string>> orderList = new List<List<string>>();
+            List<string> order = new();
+            List<List<string>> orderList = new();
         
             order.Add("");
             order.Add(addOrderNr);
@@ -162,7 +161,7 @@ namespace ProductOrderWebApp.Controllers
 
             if (!abort)
             {
-                DbProductOrders dbpo = new DbProductOrders();
+                DbProductOrders dbpo = new();
                 dbpo.OpenConn();
                 orderList.Add(order);
                 dbpo.PopulateOrderDB(orderList);
