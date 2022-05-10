@@ -11,12 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="App_Data\Order1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
